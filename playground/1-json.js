@@ -13,7 +13,7 @@ const dataJSON = dataBuffer.toString()
 const data = JSON.parse(dataJSON)
 
 console.log(data.title)*/
-
+//olololo
 const jsonData =  fs.readFileSync('1-json.json')
 const parseData = JSON.parse(jsonData)
 console.log(parseData.toString)
