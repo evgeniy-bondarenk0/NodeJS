@@ -1,6 +1,6 @@
 
-const getNotes = function (name) {
-    return name = "Your notes..."
+const getNotes = function () {
+    return "Your notes..."
 }
 
 module.exports = getNotes
