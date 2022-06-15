@@ -2,6 +2,8 @@ const path = require('path')
 const express = require('express')
 const app = express()
 const hbs = require('hbs')
+const geocode = require('./utils/geocode.js')
+const forecast = require('./utils/weather.js')
 
 // Define path for express config
 const viewPath = path.join(__dirname, '../templates/views')
@@ -47,11 +49,39 @@ app.get('', (req, res) => {
 
 
 app.get('/weather', (req, res) => {
+    if (!req.query.adress) {
+        return res.send({
+            error: 'You must provide an adress!'
+        })
+    }
+    geocode(req.query.adress, (error, {latitude, longitude, location} = {}) => {
+        if (error){
+            return res.send({error})
+        }
+        forecast(latitude, longitude, (error, forecastData) => {
+            if (error) {
+               return res.send({error});
+            }
+            res.send({
+                Weather: {
+                    Location: location,
+                    Weather: forecastData,
+                    Adress: req.query.adress
+            }})
+        })
+    })
+})
+
+app.get('/products', (req, res) => {
+    if (!req.query.search) {
+        return res.send({
+            error: 'You must provide a search term'
+        })
+        }
+    console.log(req.query)
     res.send({
-        Weather: {
-            Location: "Lviv",
-            Temperature: 28
-    }})
+        product: []
+    })
 })
 
 app.get('/help/*', (req, res) => {
