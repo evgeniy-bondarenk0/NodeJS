@@ -1,0 +1,1 @@
+start call "C:\soft\mdb\bin\mongod.exe" --dbpath="C:\Soft\mongodb-data"
